@@ -1,0 +1,17 @@
+# Mi primer programa
+var x = 5
+imprimir "Hola mundo"
+imprimir "x vale " + x
+
+si x > 3 {
+    imprimir "x es mayor que 3"
+} sino {
+    imprimir "x es pequeño"
+}
+
+var suma = 0
+mientras x > 0 {
+    suma = suma + x
+    x = x - 1
+}
+imprimir "Suma = " + suma
