@@ -1,4 +1,6 @@
 import sys
+from pathlib import Path
+
 from PyQt6.QtWidgets import QApplication, QMainWindow, QFileDialog, QMessageBox
 from PyQt6.QtGui import QTextCursor
 
@@ -10,6 +12,8 @@ from compilador import (
 )
 
 MENSAJE_VALIDO = "✔ Código válido"
+
+RUTA_ESTILOS = Path(__file__).with_name("estilos.qss")
 
 
 class Window(QMainWindow, Ui_MainWindow):
@@ -111,6 +115,7 @@ class Window(QMainWindow, Ui_MainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    app.setStyleSheet(RUTA_ESTILOS.read_text(encoding="utf-8"))
     win = Window()
     win.show()
     sys.exit(app.exec())
