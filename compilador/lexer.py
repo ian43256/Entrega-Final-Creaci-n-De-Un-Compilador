@@ -4,16 +4,16 @@ from .errores import ErrorLexico
 
 
 reservadas = {
-    "var": "VAR",
-    "imprimir": "IMPRIMIR",
-    "si": "SI",
-    "sino": "SINO",
-    "mientras": "MIENTRAS",
-    "verdadero": "VERDADERO",
-    "falso": "FALSO",
-    "y": "Y",
-    "o": "O",
-    "no": "NO",
+    "six": "VAR",
+    "seven": "IMPRIMIR",
+    "six_if": "SI",
+    "seven_else": "SINO",
+    "six_loop": "MIENTRAS",
+    "six_true": "VERDADERO",
+    "seven_false": "FALSO",
+    "six_and": "Y",
+    "seven_or": "O",
+    "six_not": "NO",
 }
 
 tokens = (
