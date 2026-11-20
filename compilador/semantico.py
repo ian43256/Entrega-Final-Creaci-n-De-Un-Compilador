@@ -63,7 +63,7 @@ class AnalizadorSemantico:
             _, condicion, entonces, sino, linea = sentencia
             tipo_condicion = self._expresion(condicion)
             if tipo_condicion is not None and tipo_condicion != BOOLEANO:
-                self._error(linea, "La condición de 'si' debe ser booleana")
+                self._error(linea, "La condición de 'six_if' debe ser booleana")
             iniciales = self.variables.copy()
             self.variables = iniciales.copy()
             self._bloque(entonces)
@@ -78,7 +78,7 @@ class AnalizadorSemantico:
             _, condicion, cuerpo, linea = sentencia
             tipo_condicion = self._expresion(condicion)
             if tipo_condicion is not None and tipo_condicion != BOOLEANO:
-                self._error(linea, "La condición de 'mientras' debe ser booleana")
+                self._error(linea, "La condición de 'six_loop' debe ser booleana")
             iniciales = self.variables
             self.variables = iniciales.copy()
             self._bloque(cuerpo)
@@ -94,7 +94,7 @@ class AnalizadorSemantico:
             else:
                 self._error(
                     linea,
-                    f"La variable '{nombre}' tiene tipos distintos en las ramas de 'si'",
+                    f"La variable '{nombre}' tiene tipos distintos en las ramas de 'six_if'",
                 )
         return resultado
 
