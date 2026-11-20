@@ -20,15 +20,15 @@ def main():
 
     print("\n=== Análisis semántico: errores de ejemplo ===")
     codigo_con_errores = """
-var a = 1
-var a = 2
+six a = 1
+six a = 2
 b = 3
-var texto = "hola"
+six texto = "hola"
 texto = 2
-si 4 {
-    imprimir "no es una condición booleana"
+six_if 4 {
+    seven "no es una condición booleana"
 }
-var division = 2 / (1 - 1)
+six division = 2 / (1 - 1)
 """
     errores = analizar(parsear(codigo_con_errores))
     if errores:
