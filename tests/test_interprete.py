@@ -27,22 +27,34 @@ class PruebasProgramaValido(unittest.TestCase):
 
     def test_formato_de_los_valores(self):
         salida = correr(
-            "imprimir 10 / 4\nimprimir 4 / 2\nimprimir verdadero\n"
-            "imprimir 1 > 2\nimprimir 7 % 3\nimprimir \"a\" + falso\n"
+            'seven 10 / 4\nseven 4 / 2\nseven six_true\n'
+            'seven 1 > 2\nseven 7 % 3\nseven "a" + seven_false\n'
         )
-        self.assertEqual(salida, ["2.5", "2", "verdadero", "falso", "1", "afalso"])
+        self.assertEqual(salida, ["2.5", "2", "six_true", "seven_false", "1", "aseven_false"])
+
+    def test_operadores_logicos_sixseven(self):
+        codigo = (
+            "seven six_not six_true\n"
+            "seven six_true six_and seven_false\n"
+            "seven six_true seven_or seven_false\n"
+        )
+        self.assertEqual(correr(codigo), ["seven_false", "seven_false", "six_true"])
+
+    def test_palabras_anteriores_se_pueden_usar_como_identificadores(self):
+        codigo = "six var = 4\nsix imprimir = var + 1\nseven imprimir\n"
+        self.assertEqual(correr(codigo), ["5"])
 
     def test_si_sino_elige_la_rama(self):
         self.assertEqual(
-            correr('si 1 > 2 { imprimir "a" } sino { imprimir "b" }'), ["b"]
+            correr('six_if 1 > 2 { seven "a" } seven_else { seven "b" }'), ["b"]
         )
 
     def test_una_linea_que_empieza_con_menos_continua_la_expresion_anterior(self):
-        # Las sentencias no llevan separador: "imprimir x" y "-5" se leen como x - 5.
-        self.assertEqual(correr("var x = 4\nimprimir x\n-5\n"), ["-1"])
+        # Las sentencias no llevan separador: "seven x" y "-5" se leen como x - 5.
+        self.assertEqual(correr('six x = 4\nseven x\n-5\n'), ["-1"])
 
     def test_analizar_codigo_no_ejecuta_el_programa(self):
-        arbol = analizar_codigo('imprimir "hola"')
+        arbol = analizar_codigo('seven "hola"')
         self.assertEqual(arbol, [("imprimir", ("str", "hola"), 1)])
 
 
@@ -50,33 +62,33 @@ class PruebasErroresAntesDeEjecutar(unittest.TestCase):
     def test_con_errores_no_se_imprime_nada(self):
         salida = []
         with self.assertRaises(ErroresSintacticos):
-            ejecutar('imprimir "antes"\nvar = 1\n', salida.append)
+            ejecutar('seven "antes"\nsix = 1\n', salida.append)
         with self.assertRaises(ErroresSemanticos):
-            ejecutar('imprimir "antes"\nimprimir b\n', salida.append)
+            ejecutar('seven "antes"\nseven b\n', salida.append)
         with self.assertRaises(ErrorLexico):
-            ejecutar('imprimir "antes"\n@\n', salida.append)
+            ejecutar('seven "antes"\n@\n', salida.append)
         self.assertEqual(salida, [])
 
     def test_analizar_codigo_lanza_el_error_de_cada_fase(self):
         with self.assertRaises(ErrorLexico):
-            analizar_codigo("var x = #\n@")
+            analizar_codigo('six x = #\n@')
         with self.assertRaises(ErroresSintacticos):
-            analizar_codigo("var = 1")
+            analizar_codigo('six = 1')
         with self.assertRaises(ErroresSemanticos):
-            analizar_codigo("imprimir z")
+            analizar_codigo("seven z")
 
 
 class PruebasErroresDeEjecucion(unittest.TestCase):
     def test_division_entre_variable_igual_a_cero(self):
         with self.assertRaises(LenguajeError) as contexto:
-            correr("var d = 0\nimprimir 1 / d\n")
+            correr('six d = 0\nseven 1 / d\n')
         self.assertEqual(contexto.exception.mensaje, "División entre cero")
         self.assertEqual(contexto.exception.linea, 2)
 
     def test_lo_impreso_antes_del_error_se_conserva(self):
         salida = []
         with self.assertRaises(LenguajeError):
-            ejecutar('imprimir "uno"\nvar d = 0\nimprimir 1 % d\n', salida.append)
+            ejecutar('seven "uno"\nsix d = 0\nseven 1 % d\n', salida.append)
         self.assertEqual(salida, ["uno"])
 
 
@@ -86,18 +98,18 @@ class PruebasLimiteDeIteraciones(unittest.TestCase):
 
     def test_bucle_infinito_se_detiene(self):
         with self.assertRaises(LenguajeError) as contexto:
-            correr("var n = 0\nmientras verdadero {\n    n = n + 1\n}\n")
+            correr('six n = 0\nsix_loop six_true {\n    n = n + 1\n}\n')
         self.assertEqual(
             contexto.exception.mensaje, "Demasiadas iteraciones (¿bucle infinito?)"
         )
         self.assertEqual(contexto.exception.linea, 2)
 
     def test_exactamente_el_limite_si_se_permite(self):
-        codigo = f"var i = 0\nmientras i < {MAX_ITERACIONES} {{\n    i = i + 1\n}}\nimprimir i\n"
+        codigo = f"six i = 0\nsix_loop i < {MAX_ITERACIONES} {{\n    i = i + 1\n}}\nseven i\n"
         self.assertEqual(correr(codigo), [str(MAX_ITERACIONES)])
 
     def test_una_iteracion_mas_del_limite_falla(self):
-        codigo = f"var i = 0\nmientras i < {MAX_ITERACIONES + 1} {{\n    i = i + 1\n}}\n"
+        codigo = f"six i = 0\nsix_loop i < {MAX_ITERACIONES + 1} {{\n    i = i + 1\n}}\n"
         with self.assertRaises(LenguajeError):
             correr(codigo)
 
