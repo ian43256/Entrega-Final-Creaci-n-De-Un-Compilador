@@ -1,17 +1,17 @@
 # Mi primer programa
-var x = 5
-imprimir "Hola mundo"
-imprimir "x vale " + x
+six x = 5
+seven "Hola mundo"
+seven "x vale " + x
 
-si x > 3 {
-    imprimir "x es mayor que 3"
-} sino {
-    imprimir "x es pequeño"
+six_if x > 3 {
+    seven "x es mayor que 3"
+} seven_else {
+    seven "x es pequeño"
 }
 
-var suma = 0
-mientras x > 0 {
+six suma = 0
+six_loop x > 0 {
     suma = suma + x
     x = x - 1
 }
-imprimir "Suma = " + suma
+seven "Suma = " + suma
