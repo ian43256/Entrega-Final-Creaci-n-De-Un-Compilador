@@ -140,7 +140,7 @@ def p_expresion_texto(p):
 def p_expresion_booleano(p):
     """expresion : VERDADERO
                  | FALSO"""
-    p[0] = ("bool", p[1] == "verdadero")
+    p[0] = ("bool", p.slice[1].type == "VERDADERO")
 
 
 def p_expresion_variable(p):
@@ -207,7 +207,7 @@ class _FuenteDeTokens:
     siguiente línea que empiece una sentencia, o hasta una '}' que cierre un bloque ya
     abierto. Así un identificador a mitad de una sentencia rota no se toma como el
     inicio de otra, y como se llevan las llaves, una '{' descartada (por ejemplo la de
-    'si x = 3 {') arrastra a su '}' y no deja un bloque sin pareja.
+    'six_if x = 3 {') arrastra a su '}' y no deja un bloque sin pareja.
     """
     def __init__(self, tokens):
         self._tokens = iter(tokens)
