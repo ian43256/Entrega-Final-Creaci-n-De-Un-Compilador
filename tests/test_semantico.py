@@ -22,10 +22,10 @@ class PruebasProgramaValido(unittest.TestCase):
 
     def test_programa_con_todos_los_tipos(self):
         codigo = (
-            'var n = 2\n'
-            'var t = "a" + n\n'
-            'var b = n > 1 y no (t == "a")\n'
-            'si b { imprimir n } sino { imprimir t }\n'
+            'six n = 2\n'
+            'six t = "a" + n\n'
+            'six b = n > 1 six_and six_not (t == "a")\n'
+            'six_if b { seven n } seven_else { seven t }\n'
         )
         self.assertEqual(errores_de(codigo), [])
 
@@ -33,111 +33,111 @@ class PruebasProgramaValido(unittest.TestCase):
 class PruebasVariables(unittest.TestCase):
     def test_variable_no_declarada_en_una_expresion(self):
         self.assertEqual(
-            errores_de("imprimir total\n"),
+            errores_de('seven total\n'),
             [(1, "Variable 'total' no declarada")],
         )
 
     def test_asignacion_a_variable_no_declarada(self):
         self.assertEqual(
-            errores_de("var a = 1\nb = 3\n"),
+            errores_de('six a = 1\nb = 3\n'),
             [(2, "Variable 'b' no declarada")],
         )
 
     def test_variable_declarada_dos_veces(self):
         self.assertEqual(
-            errores_de("var a = 1\nvar a = 2\n"),
+            errores_de('six a = 1\nsix a = 2\n'),
             [(2, "Variable 'a' ya declarada")],
         )
 
     def test_variable_declarada_dentro_de_un_bloque_no_existe_fuera(self):
-        codigo = "mientras falso {\n    var adentro = 1\n}\nimprimir adentro\n"
+        codigo = 'six_loop seven_false {\n    six adentro = 1\n}\nseven adentro\n'
         self.assertEqual(errores_de(codigo), [(4, "Variable 'adentro' no declarada")])
 
 
 class PruebasTipos(unittest.TestCase):
     def test_asignacion_de_tipo_incompatible(self):
         self.assertEqual(
-            errores_de('var texto = "hola"\ntexto = 2\n'),
+            errores_de('six texto = "hola"\ntexto = 2\n'),
             [(2, "Asignación incompatible para 'texto': "
                  "se esperaba texto y se obtuvo numero")],
         )
 
     def test_operacion_aritmetica_con_texto(self):
         self.assertEqual(
-            errores_de('imprimir "a" - 1\n'),
+            errores_de('seven "a" - 1\n'),
             [(1, "El operador '-' requiere operandos numéricos")],
         )
 
     def test_operador_logico_con_numeros(self):
         self.assertEqual(
-            errores_de("imprimir 1 y 2\n"),
-            [(1, "El operador 'y' requiere valores booleanos")],
+            errores_de('seven 1 six_and 2\n'),
+            [(1, "El operador 'six_and' requiere valores booleanos")],
         )
 
     def test_igualdad_entre_tipos_distintos(self):
         self.assertEqual(
-            errores_de('imprimir 1 == "1"\n'),
+            errores_de('seven 1 == "1"\n'),
             [(1, "El operador '==' requiere operandos del mismo tipo")],
         )
 
     def test_no_requiere_booleano(self):
         self.assertEqual(
-            errores_de("imprimir no 5\n"),
-            [(1, "El operador 'no' requiere booleano")],
+            errores_de('seven six_not 5\n'),
+            [(1, "El operador 'six_not' requiere booleano")],
         )
 
     def test_la_suma_con_texto_concatena(self):
-        self.assertEqual(errores_de('imprimir "n = " + 5\nimprimir 5 + "!"\n'), [])
+        self.assertEqual(errores_de('seven "n = " + 5\nseven 5 + "!"\n'), [])
 
 
 class PruebasCondiciones(unittest.TestCase):
     def test_condicion_de_si_no_booleana(self):
         self.assertEqual(
-            errores_de('si 4 {\n    imprimir "x"\n}\n'),
-            [(1, "La condición de 'si' debe ser booleana")],
+            errores_de('six_if 4 {\n    seven "x"\n}\n'),
+            [(1, "La condición de 'six_if' debe ser booleana")],
         )
 
     def test_condicion_de_mientras_no_booleana(self):
         self.assertEqual(
-            errores_de('var texto = "a"\nmientras texto {\n}\n'),
-            [(2, "La condición de 'mientras' debe ser booleana")],
+            errores_de('six texto = "a"\nsix_loop texto {\n}\n'),
+            [(2, "La condición de 'six_loop' debe ser booleana")],
         )
 
     def test_condicion_booleana_es_valida(self):
-        self.assertEqual(errores_de("si 1 < 2 { }\nmientras falso { }\n"), [])
+        self.assertEqual(errores_de('six_if 1 < 2 { }\nsix_loop seven_false { }\n'), [])
 
 
 class PruebasDivisionEntreCero(unittest.TestCase):
     MENSAJE = "División entre cero con valor constante"
 
     def test_division_entre_cero_literal(self):
-        self.assertEqual(errores_de("imprimir 8 / 0\n"), [(1, self.MENSAJE)])
+        self.assertEqual(errores_de('seven 8 / 0\n'), [(1, self.MENSAJE)])
 
     def test_division_entre_expresion_constante_que_vale_cero(self):
-        self.assertEqual(errores_de("var d = 2 / (1 - 1)\n"), [(1, self.MENSAJE)])
+        self.assertEqual(errores_de('six d = 2 / (1 - 1)\n'), [(1, self.MENSAJE)])
 
     def test_modulo_entre_cero(self):
-        self.assertEqual(errores_de("imprimir 8 % 0\n"), [(1, self.MENSAJE)])
+        self.assertEqual(errores_de('seven 8 % 0\n'), [(1, self.MENSAJE)])
 
     def test_division_entre_variable_no_se_detecta_en_el_analisis(self):
         # Solo se detecta cuando el divisor es constante; el resto falla al ejecutar.
-        self.assertEqual(errores_de("var d = 0\nimprimir 1 / d\n"), [])
+        self.assertEqual(errores_de('six d = 0\nseven 1 / d\n'), [])
 
     def test_division_entre_distinto_de_cero_es_valida(self):
-        self.assertEqual(errores_de("imprimir 8 / 2\n"), [])
+        self.assertEqual(errores_de('seven 8 / 2\n'), [])
 
 
 class PruebasVariosErrores(unittest.TestCase):
     CODIGO = (
-        "var a = 1\n"
-        "var a = 2\n"
+        'six a = 1\n'
+        'six a = 2\n'
         "b = 3\n"
-        'var texto = "hola"\n'
+        'six texto = "hola"\n'
         "texto = 2\n"
-        "si 4 {\n"
-        '    imprimir "no es una condición booleana"\n'
+        'six_if 4 {\n'
+        '    seven "no es una condición booleana"\n'
         "}\n"
-        "var division = 2 / (1 - 1)\n"
+        'six division = 2 / (1 - 1)\n'
     )
 
     def test_se_informan_todos_en_orden(self):
