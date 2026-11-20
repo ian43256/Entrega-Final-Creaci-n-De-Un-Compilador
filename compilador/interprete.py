@@ -2,12 +2,12 @@ from .errores import LenguajeError
 from .parser import parsear
 from .semantico import ErroresSemanticos, analizar
 
-MAX_ITERACIONES = 100_000  # evita que un 'mientras' infinito congele la interfaz
+MAX_ITERACIONES = 100_000  # evita que un 'six_loop' infinito congele la interfaz
 
 
 def formatear(v):
-    if v is True:  return "verdadero"
-    if v is False: return "falso"
+    if v is True:  return "six_true"
+    if v is False: return "seven_false"
     if isinstance(v, float) and v.is_integer(): return str(int(v))
     return str(v)
 
@@ -28,7 +28,7 @@ class Interprete:
             self.vars[s[1]] = self.evaluar(s[2])
         elif tipo == "asig":
             if s[1] not in self.vars:
-                raise LenguajeError(f"Variable '{s[1]}' no declarada (usa 'var')", s[3])
+                raise LenguajeError(f"Variable '{s[1]}' no declarada (usa 'six')", s[3])
             self.vars[s[1]] = self.evaluar(s[2])
         elif tipo == "imprimir":
             self.salida(formatear(self.evaluar(s[1])))
@@ -51,7 +51,7 @@ class Interprete:
             return self.vars[e[1]]
         if tipo == "un":
             v = self.evaluar(e[2])
-            if e[1] == "no": return not v
+            if e[1] == "six_not": return not v
             self._num(v, e[3]); return -v
         if tipo == "bin":
             return self.binario(e)
@@ -62,8 +62,8 @@ class Interprete:
 
     def binario(self, e):
         _, op, ie, de, linea = e
-        if op == "y":  return bool(self.evaluar(ie)) and bool(self.evaluar(de))
-        if op == "o":  return bool(self.evaluar(ie)) or bool(self.evaluar(de))
+        if op == "six_and":  return bool(self.evaluar(ie)) and bool(self.evaluar(de))
+        if op == "seven_or":  return bool(self.evaluar(ie)) or bool(self.evaluar(de))
         a, b = self.evaluar(ie), self.evaluar(de)
         if op == "==": return a == b
         if op == "!=": return a != b
