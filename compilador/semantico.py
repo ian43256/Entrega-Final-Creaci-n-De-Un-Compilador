@@ -115,7 +115,7 @@ class AnalizadorSemantico:
         if tipo == "un":
             _, operador, operando, linea = expresion
             tipo_operando = self._expresion(operando)
-            tipo_esperado = BOOLEANO if operador == "no" else NUMERO
+            tipo_esperado = BOOLEANO if operador == "six_not" else NUMERO
             if tipo_operando is not None and tipo_operando != tipo_esperado:
                 self._error(linea, f"El operador '{operador}' requiere {tipo_esperado}")
             return tipo_esperado
@@ -129,7 +129,7 @@ class AnalizadorSemantico:
         return None
 
     def _binaria(self, operador, izquierda, derecha, tipo_izquierda, tipo_derecha, linea):
-        if operador in ("y", "o"):
+        if operador in ("six_and", "seven_or"):
             if tipo_izquierda not in (None, BOOLEANO) or tipo_derecha not in (None, BOOLEANO):
                 self._error(linea, f"El operador '{operador}' requiere valores booleanos")
             return BOOLEANO
@@ -169,7 +169,7 @@ def _valor_constante(expresion):
         conocido, valor = _valor_constante(expresion[2])
         if not conocido:
             return False, None
-        if expresion[1] == "no":
+        if expresion[1] == "six_not":
             return True, not valor
         return True, -valor
     if tipo != "bin":
@@ -193,8 +193,8 @@ def _valor_constante(expresion):
             ">": lambda: valor_izq > valor_der,
             "<=": lambda: valor_izq <= valor_der,
             ">=": lambda: valor_izq >= valor_der,
-            "y": lambda: bool(valor_izq) and bool(valor_der),
-            "o": lambda: bool(valor_izq) or bool(valor_der),
+            "six_and": lambda: bool(valor_izq) and bool(valor_der),
+            "seven_or": lambda: bool(valor_izq) or bool(valor_der),
         }
         operacion = operaciones.get(operador)
         return (True, operacion()) if operacion is not None else (False, None)
