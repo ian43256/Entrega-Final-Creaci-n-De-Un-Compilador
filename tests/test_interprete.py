@@ -40,6 +40,14 @@ class PruebasProgramaValido(unittest.TestCase):
         )
         self.assertEqual(correr(codigo), ["seven_false", "seven_false", "six_true"])
 
+    def test_precedencia_combinada_y_parentesis_de_operadores_logicos(self):
+        codigo = (
+            "seven six_not seven_false six_and six_true seven_or seven_false\n"
+            "seven six_true seven_or seven_false six_and seven_false\n"
+            "seven (six_true seven_or seven_false) six_and seven_false\n"
+        )
+        self.assertEqual(correr(codigo), ["six_true", "six_true", "seven_false"])
+
     def test_palabras_anteriores_se_pueden_usar_como_identificadores(self):
         codigo = "six var = 4\nsix imprimir = var + 1\nseven imprimir\n"
         self.assertEqual(correr(codigo), ["5"])

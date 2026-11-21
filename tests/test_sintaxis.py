@@ -41,6 +41,30 @@ class PruebasProgramaValido(unittest.TestCase):
             ("bin", "+", ("num", 1), ("bin", "*", ("num", 2), ("num", 3), 1), 1),
         )
 
+    def test_precedencia_combinada_de_operadores_logicos(self):
+        (sentencia,) = parsear("seven six_not seven_false six_and six_true seven_or seven_false")
+        self.assertEqual(
+            sentencia[1],
+            (
+                "bin", "seven_or",
+                ("bin", "six_and",
+                 ("un", "six_not", ("bool", False), 1),
+                 ("bool", True), 1),
+                ("bool", False), 1,
+            ),
+        )
+
+    def test_parentesis_cambian_la_agrupacion_de_operadores_logicos(self):
+        (sentencia,) = parsear("seven (six_true seven_or seven_false) six_and seven_false")
+        self.assertEqual(
+            sentencia[1],
+            (
+                "bin", "six_and",
+                ("bin", "seven_or", ("bool", True), ("bool", False), 1),
+                ("bool", False), 1,
+            ),
+        )
+
     def test_las_sentencias_no_llevan_separador(self):
         # Una línea que empieza con '-' continúa la expresión anterior.
         arbol = parsear('seven x\n-5')
