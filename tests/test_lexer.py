@@ -97,6 +97,23 @@ class PruebasTokens(unittest.TestCase):
             [("VAR", 1), ("ID", 1), ("IMPRIMIR", 3), ("ID", 3), ("SI", 5)],
         )
 
+    def test_numero_de_linea_con_cr_lf_y_crlf(self):
+        for salto in ("\r", "\n", "\r\n"):
+            with self.subTest(salto=repr(salto)):
+                tokens = tokenizar(f"six x{salto}seven x")
+                self.assertEqual([token.lineno for token in tokens], [1, 1, 2, 2])
+
+    def test_crlf_se_cuenta_como_un_solo_salto(self):
+        tokens = tokenizar("six x\r\nseven x\r\nsix_if")
+        self.assertEqual([token.lineno for token in tokens], [1, 1, 2, 2, 3])
+
+    def test_comentario_termina_con_cr_aislado(self):
+        tokens = tokenizar("six x # comentario\rsix_if six_true")
+        self.assertEqual(
+            [(token.type, token.lineno) for token in tokens],
+            [("VAR", 1), ("ID", 1), ("SI", 2), ("VERDADERO", 2)],
+        )
+
     def test_el_lexer_se_reinicia_en_cada_llamada(self):
         tokenizar("six\nsix\nsix")
         self.assertEqual(tokenizar("six")[0].lineno, 1)

@@ -43,7 +43,7 @@ t_LPAREN = r"\("
 t_RPAREN = r"\)"
 t_LBRACE = r"\{"
 t_RBRACE = r"\}"
-t_ignore = " \t\r"
+t_ignore = " \t"
 
 
 def t_NUM(t):
@@ -58,7 +58,7 @@ def t_NUM(t):
 
 
 def t_STR(t):
-    r'"[^"\n]*"'
+    r'"[^"\r\n]*"'
     t.value = t.value[1:-1]
     return t
 
@@ -70,13 +70,15 @@ def t_ID(t):
 
 
 def t_COMENTARIO(t):
-    r"\#[^\n]*"
+    r"\#[^\r\n]*"
     pass
 
 
 def t_newline(t):
-    r"\n+"
-    t.lexer.lineno += len(t.value)
+    r"(\r\n|\r|\n)+"
+    t.lexer.lineno += (
+        t.value.count("\r") + t.value.count("\n") - t.value.count("\r\n")
+    )
 
 
 def t_error(t):

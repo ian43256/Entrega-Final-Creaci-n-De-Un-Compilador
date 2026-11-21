@@ -102,6 +102,13 @@ class PruebasErroresDeSintaxis(unittest.TestCase):
         (error,) = contexto.exception.errores
         self.assertEqual((error.linea, error.mensaje), (2, "Sintaxis inválida cerca de 3"))
 
+    def test_error_sintactico_informa_linea_correcta_con_cada_salto(self):
+        for salto in ("\r", "\n", "\r\n"):
+            with self.subTest(salto=repr(salto)):
+                with self.assertRaises(ErroresSintacticos) as contexto:
+                    parsear(f"six x = 1{salto}six = 2")
+                self.assertEqual(contexto.exception.errores[0].linea, 2)
+
     def test_varios_errores_se_acumulan_con_su_linea(self):
         codigo = (
             'six = 5\n'            # 1: error
