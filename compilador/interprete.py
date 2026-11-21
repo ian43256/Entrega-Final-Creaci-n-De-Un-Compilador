@@ -75,7 +75,11 @@ class Interprete:
         if op == "*": return a * b
         if op in ("/", "%") and b == 0:
             raise LenguajeError("División entre cero", linea)
-        if op == "/": return a / b
+        if op == "/":
+            try:
+                return a / b
+            except OverflowError:
+                raise LenguajeError("Resultado numérico fuera de límites", linea) from None
         if op == "%": return a % b
         if op == "<": return a < b
         if op == ">": return a > b

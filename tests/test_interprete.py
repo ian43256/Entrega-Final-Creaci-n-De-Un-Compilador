@@ -87,6 +87,16 @@ class PruebasErroresAntesDeEjecutar(unittest.TestCase):
 
 
 class PruebasErroresDeEjecucion(unittest.TestCase):
+    def test_division_de_entero_grande_da_error_controlado(self):
+        codigo = f"seven {'9' * 400} / 1"
+        with self.assertRaises(LenguajeError) as contexto:
+            correr(codigo)
+        self.assertEqual(contexto.exception.mensaje, "Resultado numérico fuera de límites")
+        self.assertEqual(contexto.exception.linea, 1)
+
+    def test_divisiones_normales_siguen_funcionando(self):
+        self.assertEqual(correr("seven 10 / 4\nseven 4 / 2"), ["2.5", "2"])
+
     def test_division_entre_variable_igual_a_cero(self):
         with self.assertRaises(LenguajeError) as contexto:
             correr('six d = 0\nseven 1 / d\n')
