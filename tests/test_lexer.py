@@ -39,11 +39,32 @@ class PruebasTokens(unittest.TestCase):
         self.assertEqual(tipos("six_extra sevenish six_if_else"), ["ID", "ID", "ID"])
 
     def test_numeros_enteros_y_decimales(self):
-        entero, decimal = tokenizar("42 3.14")
+        entero, decimal, entero_grande, decimal_grande = tokenizar(
+            "42 3.14 12345678901234567890 12345678901234567890.0"
+        )
         self.assertEqual((entero.type, entero.value), ("NUM", 42))
         self.assertIsInstance(entero.value, int)
         self.assertEqual((decimal.type, decimal.value), ("NUM", 3.14))
         self.assertIsInstance(decimal.value, float)
+        self.assertEqual((entero_grande.type, entero_grande.value), ("NUM", 12345678901234567890))
+        self.assertIsInstance(entero_grande.value, int)
+        self.assertEqual(
+            (decimal_grande.type, decimal_grande.value),
+            ("NUM", 1.2345678901234567e19),
+        )
+        self.assertIsInstance(decimal_grande.value, float)
+
+    def test_entero_fuera_de_limites_da_error_lexico(self):
+        with self.assertRaises(ErrorLexico) as contexto:
+            tokenizar("six x = 1\n" + "9" * 5000)
+        self.assertEqual(contexto.exception.mensaje, "Literal numérico fuera de límites")
+        self.assertEqual(contexto.exception.linea, 2)
+
+    def test_decimal_no_finito_da_error_lexico(self):
+        with self.assertRaises(ErrorLexico) as contexto:
+            tokenizar("seven " + "9" * 400 + ".0")
+        self.assertEqual(contexto.exception.mensaje, "Literal numérico fuera de límites")
+        self.assertEqual(contexto.exception.linea, 1)
 
     def test_cadena_sin_las_comillas(self):
         (token,) = tokenizar('"hola mundo"')

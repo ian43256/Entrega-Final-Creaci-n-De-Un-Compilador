@@ -1,3 +1,5 @@
+import math
+
 import ply.lex as lex
 
 from .errores import ErrorLexico
@@ -46,7 +48,12 @@ t_ignore = " \t\r"
 
 def t_NUM(t):
     r"\d+(\.\d+)?"
-    t.value = float(t.value) if "." in t.value else int(t.value)
+    try:
+        t.value = float(t.value) if "." in t.value else int(t.value)
+    except (OverflowError, ValueError):
+        raise ErrorLexico("Literal numérico fuera de límites", t.lineno) from None
+    if isinstance(t.value, float) and not math.isfinite(t.value):
+        raise ErrorLexico("Literal numérico fuera de límites", t.lineno)
     return t
 
 
