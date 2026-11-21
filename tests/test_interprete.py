@@ -32,6 +32,17 @@ class PruebasProgramaValido(unittest.TestCase):
         )
         self.assertEqual(salida, ["2.5", "2", "six_true", "seven_false", "1", "aseven_false"])
 
+    def test_operaciones_aritmeticas_normales(self):
+        codigo = (
+            "seven 2 + 3\n"
+            "seven 7 - 2\n"
+            "seven 3 * 4\n"
+            "seven 10 / 4\n"
+            "seven 7 % 4\n"
+            "seven 1.5 * 2\n"
+        )
+        self.assertEqual(correr(codigo), ["5", "5", "12", "2.5", "3", "3"])
+
     def test_operadores_logicos_sixseven(self):
         codigo = (
             "seven six_not six_true\n"
@@ -87,6 +98,21 @@ class PruebasErroresAntesDeEjecutar(unittest.TestCase):
 
 
 class PruebasErroresDeEjecucion(unittest.TestCase):
+    def test_desbordamiento_decimal_da_error_controlado(self):
+        operando = "1" + "0" * 200 + ".0"
+        codigo = f"six a = {operando}\nsix b = {operando}\nseven a * b\n"
+        with self.assertRaises(LenguajeError) as contexto:
+            correr(codigo)
+        self.assertEqual(contexto.exception.mensaje, "Resultado numérico fuera de límites")
+        self.assertEqual(contexto.exception.linea, 3)
+
+    def test_imprimir_entero_extremadamente_grande_da_error_controlado(self):
+        literal = "9" * 2200
+        with self.assertRaises(LenguajeError) as contexto:
+            correr(f"seven {literal} * {literal}")
+        self.assertEqual(contexto.exception.mensaje, "Resultado numérico fuera de límites")
+        self.assertEqual(contexto.exception.linea, 1)
+
     def test_division_de_entero_grande_da_error_controlado(self):
         codigo = f"seven {'9' * 400} / 1"
         with self.assertRaises(LenguajeError) as contexto:

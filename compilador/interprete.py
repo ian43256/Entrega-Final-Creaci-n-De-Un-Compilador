@@ -1,3 +1,5 @@
+import math
+
 from .errores import LenguajeError
 from .parser import parsear
 from .semantico import ErroresSemanticos, analizar
@@ -5,11 +7,14 @@ from .semantico import ErroresSemanticos, analizar
 MAX_ITERACIONES = 100_000  # evita que un 'six_loop' infinito congele la interfaz
 
 
-def formatear(v):
+def formatear(v, linea=None):
     if v is True:  return "six_true"
     if v is False: return "seven_false"
-    if isinstance(v, float) and v.is_integer(): return str(int(v))
-    return str(v)
+    try:
+        if isinstance(v, float) and v.is_integer(): return str(int(v))
+        return str(v)
+    except ValueError:
+        raise LenguajeError("Resultado numérico fuera de límites", linea) from None
 
 
 class Interprete:
@@ -31,7 +36,7 @@ class Interprete:
                 raise LenguajeError(f"Variable '{s[1]}' no declarada (usa 'six')", s[3])
             self.vars[s[1]] = self.evaluar(s[2])
         elif tipo == "imprimir":
-            self.salida(formatear(self.evaluar(s[1])))
+            self.salida(formatear(self.evaluar(s[1]), s[2]))
         elif tipo == "si":
             self.ejecutar_bloque(s[2] if self.evaluar(s[1]) else s[3])
         elif tipo == "mientras":
@@ -68,19 +73,24 @@ class Interprete:
         if op == "==": return a == b
         if op == "!=": return a != b
         if op == "+" and (isinstance(a, str) or isinstance(b, str)):
-            return formatear(a) + formatear(b)
+            return formatear(a, linea) + formatear(b, linea)
         self._num(a, linea); self._num(b, linea)
-        if op == "+": return a + b
-        if op == "-": return a - b
-        if op == "*": return a * b
         if op in ("/", "%") and b == 0:
             raise LenguajeError("División entre cero", linea)
         if op == "/":
             try:
-                return a / b
+                resultado = a / b
             except OverflowError:
                 raise LenguajeError("Resultado numérico fuera de límites", linea) from None
-        if op == "%": return a % b
+        elif op == "+": resultado = a + b
+        elif op == "-": resultado = a - b
+        elif op == "*": resultado = a * b
+        elif op == "%": resultado = a % b
+        else: resultado = None
+        if isinstance(resultado, float) and not math.isfinite(resultado):
+            raise LenguajeError("Resultado numérico fuera de límites", linea)
+        if resultado is not None:
+            return resultado
         if op == "<": return a < b
         if op == ">": return a > b
         if op == "<=": return a <= b
