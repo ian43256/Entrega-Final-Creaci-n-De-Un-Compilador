@@ -107,6 +107,29 @@ class PruebasCondiciones(unittest.TestCase):
         self.assertEqual(errores_de('six_if 1 < 2 { }\nsix_loop seven_false { }\n'), [])
 
 
+class PruebasUnionDeRamas(unittest.TestCase):
+    def test_errores_de_tipos_incompatibles_siguen_el_orden_de_aparicion(self):
+        codigo = (
+            "six_if six_true {\n"
+            "    six tercero = 1\n"
+            "    six primero = 2\n"
+            "    six segundo = 3\n"
+            "} seven_else {\n"
+            '    six tercero = "a"\n'
+            '    six primero = "b"\n'
+            '    six segundo = "c"\n'
+            "}\n"
+        )
+        self.assertEqual(
+            errores_de(codigo),
+            [
+                (1, "La variable 'tercero' tiene tipos distintos en las ramas de 'six_if'"),
+                (1, "La variable 'primero' tiene tipos distintos en las ramas de 'six_if'"),
+                (1, "La variable 'segundo' tiene tipos distintos en las ramas de 'six_if'"),
+            ],
+        )
+
+
 class PruebasDivisionEntreCero(unittest.TestCase):
     MENSAJE = "División entre cero con valor constante"
 

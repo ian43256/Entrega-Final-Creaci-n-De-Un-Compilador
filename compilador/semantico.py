@@ -87,7 +87,9 @@ class AnalizadorSemantico:
 
     def _unir_ramas(self, iniciales, entonces, sino, linea):
         resultado = iniciales.copy()
-        for nombre in entonces.keys() & sino.keys():
+        for nombre in entonces:
+            if nombre not in sino:
+                continue
             if nombre in iniciales:
                 continue
             if entonces[nombre] == sino[nombre]:
