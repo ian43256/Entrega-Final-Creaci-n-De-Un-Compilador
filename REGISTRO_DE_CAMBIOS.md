@@ -653,3 +653,91 @@ Los siguientes archivos **no fueron tocados** durante esta sesión:
 - **Tests:** 86 tests pasando (OK)
 - **Archivos pendientes de commit:** estilos.qss
 - **Funcionalidad:** Sin cambios, solo mejoras visuales.
+
+---
+
+## Sesión 5: Bordes de acento unificados y barras de desplazamiento pastel
+
+**Fecha:** 22 de noviembre de 2026  
+**Objetivo:** Unificar el borde superior del área de salida con el tono gris de las etiquetas y mejorar visualmente las barras de desplazamiento con colores pastel que armonicen con el tema general.
+
+---
+
+### Paso 1: Unificar borde del área de salida a gris
+
+**Archivo modificado:** `estilos.qss`
+
+**Cambios realizados:** Se cambió el borde superior de `txtSalida` de durazno pastel a gris neutro para que coincida con las etiquetas "Código:" y "Salida:".
+
+| Propiedad | Antes | Después |
+|-----------|-------|---------|
+| `border-top` (txtSalida) | `3px solid #FFCBA4` (durazno) | `3px solid #9e9e9e` (gris) |
+
+**Motivo:** El borde durazno del área de salida era el último elemento de color que no coincidía con las etiquetas grises, rompiendo la coherencia visual entre ambas secciones.
+
+---
+
+### Paso 2: Barras de desplazamiento con tema pastel
+
+**Archivo modificado:** `estilos.qss`
+
+**Cambios realizados:** Las barras de desplazamiento verticales y horizontales ahora usan tonos azul pastel en lugar de gris neutro, con un ancho mayor y estado `:pressed`.
+
+| Propiedad | Antes | Después |
+|-----------|-------|---------|
+| Fondo de pista | `#f0f0f0` (gris claro) | `#e8edf2` (azul muy claro) |
+| Color del control (handle) | `#c0c0c0` (gris) | `#A8C4E8` (azul pastel) |
+| Color al pasar el mouse (hover) | `#a0a0a0` (gris oscuro) | `#8BB0D8` (azul medio) |
+| Color al presionar (pressed) | No definido | `#7BAFD4` (azul más intenso) |
+| Ancho/alto de barra | 12px | 14px |
+| Borde redondeado | 6px | 7px |
+
+**Motivo:** Las barras de desplazamiento grises se veían genéricas y no integradas con el tema pastel de la interfaz. Ahora armonicen con los botones y otros elementos de color.
+
+---
+
+### Paso 3: Verificación final
+
+**Comando ejecutado:**
+```powershell
+python -m unittest discover tests
+```
+
+**Resultado:** 86 tests ejecutados, todos pasaron (OK) en 0.609s.
+
+---
+
+## Resumen de Archivos Modificados (Sesión 5)
+
+| Archivo | Acción | Descripción |
+|---------|--------|-------------|
+| `estilos.qss` | **Modificado** | Borde de txtSalida unificado a gris (#9e9e9e). Barras de desplazamiento verticales y horizontales con tema azul pastel (#A8C4E8), ancho 14px, estado :pressed (#7BAFD4) |
+
+**Total de archivos modificados en esta sesión:** 1 archivo
+
+---
+
+## Archivos NO Modificados
+
+Los siguientes archivos **no fueron tocados** durante esta sesión:
+
+- `compilador/` (carpeta completa con la lógica del compilador)
+- `tests/` (carpeta completa con los tests unitarios)
+- `README.md`
+- `MANUAL_USUARIO.md`
+- `requirements.txt`
+- `.gitignore`
+- `editor.py`
+- `resaltador.py`
+- `main.py`
+- `interfaz.ui`
+- `ui_principal.py`
+
+---
+
+## Estado Final
+
+- **Rama:** `interfaz-bonita`
+- **Tests:** 86 tests pasando (OK)
+- **Archivos pendientes de commit:** estilos.qss
+- **Funcionalidad:** Sin cambios, solo mejoras visuales.
