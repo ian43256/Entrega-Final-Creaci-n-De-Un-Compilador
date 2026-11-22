@@ -25,6 +25,9 @@
      <layout class="QHBoxLayout" name="layoutBotones">
       <item>
        <widget class="QPushButton" name="btnAbrir">
+        <property name="toolTip">
+         <string>Abrir archivo de código</string>
+        </property>
         <property name="text">
          <string>Abrir</string>
         </property>
@@ -32,6 +35,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="btnGuardar">
+        <property name="toolTip">
+         <string>Guardar archivo actual</string>
+        </property>
         <property name="text">
          <string>Guardar</string>
         </property>
@@ -39,6 +45,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="btnAnalizar">
+        <property name="toolTip">
+         <string>Analizar sintaxis del código</string>
+        </property>
         <property name="text">
          <string>Analizar</string>
         </property>
@@ -46,6 +55,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="btnEjecutar">
+        <property name="toolTip">
+         <string>Ejecutar el programa</string>
+        </property>
         <property name="text">
          <string>▶ Ejecutar</string>
         </property>
@@ -53,6 +65,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="btnLimpiar">
+        <property name="toolTip">
+         <string>Limpiar el área de salida</string>
+        </property>
         <property name="text">
          <string>Limpiar salida</string>
         </property>
@@ -89,7 +104,7 @@
        </font>
       </property>
       <property name="placeholderText">
-       <string>Escribe aquí tu programa...</string>
+       <string>Escribe aquí tu programa en MiniLang...</string>
       </property>
      </widget>
     </item>

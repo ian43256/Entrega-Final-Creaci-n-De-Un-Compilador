@@ -45,18 +45,35 @@ QMenu::item:selected {
 }
 
 QMenu::separator {
-    height: 1px;
-    background-color: #d0d0d0;
-    margin: 4px 12px;
+    height: 2px;
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #C5D9F7, stop:0.5 #FFCBA4, stop:1 #FF8FA3);
+    margin: 6px 12px;
+    border-radius: 1px;
+}
+
+/* ---------- tooltips personalizados ---------- */
+QToolTip {
+    background-color: #ffffff;
+    color: #333333;
+    border: 2px solid #C5D9F7;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 11px;
 }
 
 /* ---------- barra de estado ---------- */
 QStatusBar {
     background-color: #ffffff;
     color: #555555;
-    border-top: 1px solid #d0d0d0;
+    border-top: 2px solid #e0e8f0;
     font-size: 12px;
-    padding: 2px 4px;
+    font-weight: 500;
+    padding: 4px 8px;
+}
+
+QStatusBar::item {
+    border: none;
+    padding: 2px 8px;
 }
 
 /* ---------- widget central ---------- */
@@ -65,12 +82,26 @@ QWidget#centralwidget {
 }
 
 /* ---------- etiquetas "Código:" y "Salida:" ---------- */
-QLabel#lblEditor,
+QLabel#lblEditor {
+    font-size: 14px;
+    font-weight: bold;
+    color: #2c3e50;
+    padding: 6px 10px 4px 12px;
+    background-color: #e0e0e0;
+    border-left: 4px solid #9e9e9e;
+    border-radius: 4px;
+    min-height: 24px;
+}
+
 QLabel#lblSalida {
     font-size: 14px;
     font-weight: bold;
-    color: #333333;
-    padding: 4px 0px 2px 4px;
+    color: #2c3e50;
+    padding: 6px 10px 4px 12px;
+    background-color: #e0e0e0;
+    border-left: 4px solid #9e9e9e;
+    border-radius: 4px;
+    min-height: 24px;
 }
 
 /* ---------- botón Abrir (azul pastel) ---------- */
@@ -78,20 +109,25 @@ QPushButton#btnAbrir {
     background-color: #C5D9F7;
     color: #333333;
     border: 2px solid #A8C4E8;
-    border-radius: 8px;
-    padding: 6px 16px;
+    border-bottom: 3px solid #8BB0D8;
+    border-radius: 10px;
+    padding: 8px 18px;
     font-size: 13px;
+    font-weight: 600;
     min-width: 80px;
 }
 
 QPushButton#btnAbrir:hover {
     background-color: #B0C8F0;
     border-color: #8BB0D8;
+    border-bottom-color: #7AA0C8;
 }
 
 QPushButton#btnAbrir:pressed {
     background-color: #9AB8E6;
-    border-color: #7AA0C8;
+    border: 2px solid #7AA0C8;
+    border-bottom: 2px solid #6A90B8;
+    padding: 8px 18px 6px 18px;
 }
 
 /* ---------- botón Guardar (verde pastel) ---------- */
@@ -99,20 +135,25 @@ QPushButton#btnGuardar {
     background-color: #A8F0C6;
     color: #333333;
     border: 2px solid #8BD8AE;
-    border-radius: 8px;
-    padding: 6px 16px;
+    border-bottom: 3px solid #6EC89A;
+    border-radius: 10px;
+    padding: 8px 18px;
     font-size: 13px;
+    font-weight: 600;
     min-width: 80px;
 }
 
 QPushButton#btnGuardar:hover {
     background-color: #93E6BA;
     border-color: #6EC89A;
+    border-bottom-color: #5DB88A;
 }
 
 QPushButton#btnGuardar:pressed {
     background-color: #7DDCAE;
-    border-color: #5DB88A;
+    border: 2px solid #5DB88A;
+    border-bottom: 2px solid #4DA87A;
+    padding: 8px 18px 6px 18px;
 }
 
 /* ---------- botón Analizar (durazno pastel) ---------- */
@@ -120,20 +161,25 @@ QPushButton#btnAnalizar {
     background-color: #FFCBA4;
     color: #333333;
     border: 2px solid #F0B088;
-    border-radius: 8px;
-    padding: 6px 16px;
+    border-bottom: 3px solid #E89A6E;
+    border-radius: 10px;
+    padding: 8px 18px;
     font-size: 13px;
+    font-weight: 600;
     min-width: 80px;
 }
 
 QPushButton#btnAnalizar:hover {
     background-color: #FFBE8E;
     border-color: #E89A6E;
+    border-bottom-color: #D88A5E;
 }
 
 QPushButton#btnAnalizar:pressed {
     background-color: #FFB078;
-    border-color: #D88A5E;
+    border: 2px solid #D88A5E;
+    border-bottom: 2px solid #C87A4E;
+    padding: 8px 18px 6px 18px;
 }
 
 /* ---------- botón principal "▶ Ejecutar" (rosa pastel) ---------- */
@@ -141,9 +187,10 @@ QPushButton#btnEjecutar {
     background-color: #FF8FA3;
     color: #ffffff;
     border: 2px solid #E07090;
-    border-radius: 8px;
-    padding: 6px 20px;
-    font-size: 13px;
+    border-bottom: 3px solid #D06080;
+    border-radius: 10px;
+    padding: 8px 22px;
+    font-size: 14px;
     font-weight: bold;
     min-width: 100px;
 }
@@ -151,11 +198,14 @@ QPushButton#btnEjecutar {
 QPushButton#btnEjecutar:hover {
     background-color: #FF7A96;
     border-color: #D06080;
+    border-bottom-color: #C05070;
 }
 
 QPushButton#btnEjecutar:pressed {
     background-color: #FF6588;
-    border-color: #C05070;
+    border: 2px solid #C05070;
+    border-bottom: 2px solid #B04060;
+    padding: 8px 22px 6px 22px;
 }
 
 /* ---------- botón Limpiar (amarillo pastel) ---------- */
@@ -163,46 +213,65 @@ QPushButton#btnLimpiar {
     background-color: #E8F8C5;
     color: #333333;
     border: 2px solid #C8E8A0;
-    border-radius: 8px;
-    padding: 6px 16px;
+    border-bottom: 3px solid #B0D888;
+    border-radius: 10px;
+    padding: 8px 18px;
     font-size: 13px;
+    font-weight: 600;
     min-width: 80px;
 }
 
 QPushButton#btnLimpiar:hover {
     background-color: #D8F0B0;
     border-color: #B0D888;
+    border-bottom-color: #A0C878;
 }
 
 QPushButton#btnLimpiar:pressed {
     background-color: #C8E898;
-    border-color: #A0C878;
+    border: 2px solid #A0C878;
+    border-bottom: 2px solid #90B868;
+    padding: 8px 18px 6px 18px;
 }
 
 /* ---------- layout de botones ---------- */
 QHBoxLayout#layoutBotones {
+    spacing: 10px;
+    margin: 10px 10px 6px 10px;
+}
+
+/* ---------- layout vertical principal ---------- */
+QVBoxLayout#verticalLayout {
     spacing: 8px;
-    margin: 8px 8px 4px 8px;
+    margin: 10px;
 }
 
 /* ---------- editor de código ---------- */
 EditorCodigo#txtEditor {
     background-color: #ffffff;
     color: #1e1e1e;
-    border: 1px solid #d0d0d0;
-    border-radius: 6px;
-    padding: 8px;
+    border: 2px solid #d0d0d0;
+    border-top: 3px solid #C5D9F7;
+    border-radius: 8px;
+    padding: 10px;
     selection-background-color: #b3d4fc;
     selection-color: #1e1e1e;
+    font-size: 12px;
+}
+
+EditorCodigo#txtEditor:focus {
+    border: 2px solid #A8C4E8;
+    border-top: 3px solid #7BAFD4;
 }
 
 /* ---------- área de salida ---------- */
 QPlainTextEdit#txtSalida {
-    background-color: #1e1e1e;
+    background-color: #2d2d2d;
     color: #d4d4d4;
-    border: 1px solid #d0d0d0;
-    border-radius: 6px;
-    padding: 8px;
+    border: 2px solid #555555;
+    border-top: 3px solid #FFCBA4;
+    border-radius: 8px;
+    padding: 10px;
     selection-background-color: #264f78;
     selection-color: #d4d4d4;
     font-size: 11px;
