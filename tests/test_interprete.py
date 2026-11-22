@@ -43,6 +43,15 @@ class PruebasProgramaValido(unittest.TestCase):
         )
         self.assertEqual(correr(codigo), ["5", "5", "12", "2.5", "3", "3"])
 
+    def test_operaciones_normales_con_enteros_y_decimales(self):
+        codigo = (
+            "seven 7 + 1.5\n"
+            "seven 7 - 1.5\n"
+            "seven 7 * 1.5\n"
+            "seven 7 % 1.5\n"
+        )
+        self.assertEqual(correr(codigo), ["8.5", "5.5", "10.5", "1"])
+
     def test_operadores_logicos_sixseven(self):
         codigo = (
             "seven six_not six_true\n"
@@ -119,6 +128,18 @@ class PruebasErroresDeEjecucion(unittest.TestCase):
             correr(codigo)
         self.assertEqual(contexto.exception.mensaje, "Resultado numérico fuera de límites")
         self.assertEqual(contexto.exception.linea, 1)
+
+    def test_operaciones_con_entero_grande_y_decimal_da_error_controlado(self):
+        entero_grande = "9" * 400
+        for operador in ("+", "-", "*", "%"):
+            with self.subTest(operador=operador):
+                codigo = f"seven {entero_grande} {operador} 1.0"
+                with self.assertRaises(LenguajeError) as contexto:
+                    correr(codigo)
+                self.assertEqual(
+                    contexto.exception.mensaje, "Resultado numérico fuera de límites"
+                )
+                self.assertEqual(contexto.exception.linea, 1)
 
     def test_divisiones_normales_siguen_funcionando(self):
         self.assertEqual(correr("seven 10 / 4\nseven 4 / 2"), ["2.5", "2"])

@@ -77,16 +77,15 @@ class Interprete:
         self._num(a, linea); self._num(b, linea)
         if op in ("/", "%") and b == 0:
             raise LenguajeError("División entre cero", linea)
-        if op == "/":
-            try:
-                resultado = a / b
-            except OverflowError:
-                raise LenguajeError("Resultado numérico fuera de límites", linea) from None
-        elif op == "+": resultado = a + b
-        elif op == "-": resultado = a - b
-        elif op == "*": resultado = a * b
-        elif op == "%": resultado = a % b
-        else: resultado = None
+        try:
+            if op == "/": resultado = a / b
+            elif op == "+": resultado = a + b
+            elif op == "-": resultado = a - b
+            elif op == "*": resultado = a * b
+            elif op == "%": resultado = a % b
+            else: resultado = None
+        except OverflowError:
+            raise LenguajeError("Resultado numérico fuera de límites", linea) from None
         if isinstance(resultado, float) and not math.isfinite(resultado):
             raise LenguajeError("Resultado numérico fuera de límites", linea)
         if resultado is not None:
