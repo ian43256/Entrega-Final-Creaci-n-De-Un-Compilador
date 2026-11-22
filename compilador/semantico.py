@@ -1,3 +1,4 @@
+import math
 from dataclasses import dataclass
 
 
@@ -152,6 +153,12 @@ class AnalizadorSemantico:
             conocido, valor = _valor_constante(derecha)
             if conocido and type(valor) in (int, float) and valor == 0:
                 self._error(linea, "División entre cero con valor constante")
+        if operador in ("+", "-", "*", "/", "%"):
+            conocido, valor = _valor_constante(
+                ("bin", operador, izquierda, derecha, linea)
+            )
+            if conocido and isinstance(valor, float) and not math.isfinite(valor):
+                self._error(linea, "Resultado numérico fuera de límites")
         return NUMERO
 
     def _requiere_numeros(self, operador, izquierda, derecha, linea):

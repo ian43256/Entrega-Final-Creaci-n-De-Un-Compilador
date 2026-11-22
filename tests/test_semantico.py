@@ -126,6 +126,18 @@ class PruebasDivisionEntreCero(unittest.TestCase):
     def test_division_entre_distinto_de_cero_es_valida(self):
         self.assertEqual(errores_de('seven 8 / 2\n'), [])
 
+    def test_desbordamiento_decimal_constante_se_detecta_semanticamente(self):
+        operando = "1" + "0" * 200 + ".0"
+        codigo = f"seven {operando} * {operando}\n"
+        self.assertEqual(
+            errores_de(codigo),
+            [(1, "Resultado numérico fuera de límites")],
+        )
+
+    def test_operaciones_decimales_constantes_finitas_son_validas(self):
+        codigo = "seven 1.5 * 2\nseven 8.0 / 2.0\nseven 3.5 + 0.5\n"
+        self.assertEqual(errores_de(codigo), [])
+
 
 class PruebasVariosErrores(unittest.TestCase):
     CODIGO = (
