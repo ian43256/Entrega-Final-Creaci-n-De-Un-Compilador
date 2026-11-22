@@ -1,4 +1,5 @@
 import math
+from decimal import Decimal
 
 import ply.lex as lex
 
@@ -48,10 +49,13 @@ t_ignore = " \t"
 
 def t_NUM(t):
     r"\d+(\.\d+)?"
+    literal = t.value
     try:
-        t.value = float(t.value) if "." in t.value else int(t.value)
+        t.value = float(literal) if "." in literal else int(literal)
     except (OverflowError, ValueError):
         raise ErrorLexico("Literal numérico fuera de límites", t.lineno) from None
+    if "." in literal and t.value == 0.0 and not Decimal(literal).is_zero():
+        raise ErrorLexico("Literal numérico fuera de límites", t.lineno)
     if isinstance(t.value, float) and not math.isfinite(t.value):
         raise ErrorLexico("Literal numérico fuera de límites", t.lineno)
     return t

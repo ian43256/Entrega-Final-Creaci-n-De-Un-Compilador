@@ -66,6 +66,27 @@ class PruebasTokens(unittest.TestCase):
         self.assertEqual(contexto.exception.mensaje, "Literal numérico fuera de límites")
         self.assertEqual(contexto.exception.linea, 1)
 
+    def test_decimal_subdesbordado_da_error_lexico(self):
+        literal = "0." + "0" * 400 + "1"
+        with self.assertRaises(ErrorLexico) as contexto:
+            tokenizar("seven " + literal)
+        self.assertEqual(contexto.exception.mensaje, "Literal numérico fuera de límites")
+        self.assertEqual(contexto.exception.linea, 1)
+
+    def test_decimales_pequenos_representables_siguen_funcionando(self):
+        for literal, esperado in (
+            ("0." + "0" * 307 + "1", 1e-308),
+            ("0." + "0" * 323 + "5", 5e-324),
+        ):
+            with self.subTest(literal=literal):
+                (token,) = tokenizar(literal)
+                self.assertEqual(token.value, esperado)
+                self.assertNotEqual(token.value, 0.0)
+
+    def test_decimal_normal_sigue_funcionando(self):
+        (token,) = tokenizar("3.14")
+        self.assertEqual((token.type, token.value), ("NUM", 3.14))
+
     def test_cadena_sin_las_comillas(self):
         (token,) = tokenizar('"hola mundo"')
         self.assertEqual((token.type, token.value), ("STR", "hola mundo"))
