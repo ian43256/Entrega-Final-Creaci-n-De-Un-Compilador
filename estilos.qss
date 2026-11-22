@@ -87,8 +87,8 @@ QLabel#lblEditor {
     font-weight: bold;
     color: #2c3e50;
     padding: 6px 10px 4px 12px;
-    background-color: #C5D9F7;
-    border-left: 4px solid #7BAFD4;
+    background-color: #e0e0e0;
+    border-left: 4px solid #9e9e9e;
     border-radius: 4px;
     min-height: 24px;
 }
@@ -98,8 +98,8 @@ QLabel#lblSalida {
     font-weight: bold;
     color: #2c3e50;
     padding: 6px 10px 4px 12px;
-    background-color: #FFCBA4;
-    border-left: 4px solid #E8A070;
+    background-color: #e0e0e0;
+    border-left: 4px solid #9e9e9e;
     border-radius: 4px;
     min-height: 24px;
 }

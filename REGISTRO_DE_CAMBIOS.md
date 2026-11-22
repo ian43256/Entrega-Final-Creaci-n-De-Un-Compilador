@@ -583,3 +583,73 @@ Los siguientes archivos **no fueron tocados** durante esta sesión:
 - **Tests:** 86 tests pasando (OK)
 - **Archivos pendientes de commit:** estilos.qss, interfaz.ui, ui_principal.py
 - **Funcionalidad:** Sin cambios, solo mejoras visuales.
+
+---
+
+## Sesión 4: Etiquetas "Código:" y "Salida:" cambiadas a gris neutro
+
+**Fecha:** 22 de noviembre de 2026  
+**Objetivo:** Cambiar los separadores visuales entre el área de código y el área de salida de colores pastel a un tono gris neutro, manteniendo los botones de arriba con sus colores pastel.
+
+---
+
+### Paso 1: Cambio de colores de etiquetas a gris neutro
+
+**Archivo modificado:** `estilos.qss`
+
+**Cambios realizados:** Se reemplazaron los fondos y bordes de color pastel de ambas etiquetas por un gris neutro uniforme.
+
+| Propiedad | lblEditor (Código) - Antes | lblEditor (Código) - Después | lblSalida (Salida) - Antes | lblSalida (Salida) - Después |
+|-----------|---------------------------|-----------------------------|--------------------------|----------------------------|
+| Fondo | Azul pastel #C5D9F7 | Gris #e0e0e0 | Durazno pastel #FFCBA4 | Gris #e0e0e0 |
+| Borde izquierdo | 4px sólido #7BAFD4 (azul) | 4px sólido #9e9e9e (gris) | 4px sólido #E8A070 (durazno) | 4px sólido #9e9e9e (gris) |
+
+**Motivo:** El usuario prefirió un aspecto más neutro y sobrio para los separadores de sección, manteniendo los botones de acción con colores pastel para destacar las funciones.
+
+---
+
+### Paso 2: Verificación final
+
+**Comando ejecutado:**
+```powershell
+python -m unittest discover tests
+```
+
+**Resultado:** 86 tests ejecutados, todos pasaron (OK) en 0.540s.
+
+---
+
+## Resumen de Archivos Modificados (Sesión 4)
+
+| Archivo | Acción | Descripción |
+|---------|--------|-------------|
+| `estilos.qss` | **Modificado** | Etiquetas lblEditor y lblSalida cambiadas de colores pastel a gris neutro (#e0e0e0 con borde #9e9e9e) |
+
+**Total de archivos modificados en esta sesión:** 1 archivo
+
+---
+
+## Archivos NO Modificados
+
+Los siguientes archivos **no fueron tocados** durante esta sesión:
+
+- `compilador/` (carpeta completa con la lógica del compilador)
+- `tests/` (carpeta completa con los tests unitarios)
+- `README.md`
+- `MANUAL_USUARIO.md`
+- `requirements.txt`
+- `.gitignore`
+- `editor.py`
+- `resaltador.py`
+- `main.py`
+- `interfaz.ui`
+- `ui_principal.py`
+
+---
+
+## Estado Final
+
+- **Rama:** `interfaz-bonita`
+- **Tests:** 86 tests pasando (OK)
+- **Archivos pendientes de commit:** estilos.qss
+- **Funcionalidad:** Sin cambios, solo mejoras visuales.
