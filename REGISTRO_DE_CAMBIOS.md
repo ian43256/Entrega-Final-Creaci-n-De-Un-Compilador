@@ -653,3 +653,197 @@ Los siguientes archivos **no fueron tocados** durante esta sesión:
 - **Tests:** 86 tests pasando (OK)
 - **Archivos pendientes de commit:** estilos.qss
 - **Funcionalidad:** Sin cambios, solo mejoras visuales.
+
+---
+
+## Sesión 5: Bordes de acento unificados y barras de desplazamiento pastel
+
+**Fecha:** 22 de noviembre de 2026  
+**Objetivo:** Unificar el borde superior del área de salida con el tono gris de las etiquetas y mejorar visualmente las barras de desplazamiento con colores pastel que armonicen con el tema general.
+
+---
+
+### Paso 1: Unificar borde del área de salida a gris
+
+**Archivo modificado:** `estilos.qss`
+
+**Cambios realizados:** Se cambió el borde superior de `txtSalida` de durazno pastel a gris neutro para que coincida con las etiquetas "Código:" y "Salida:".
+
+| Propiedad | Antes | Después |
+|-----------|-------|---------|
+| `border-top` (txtSalida) | `3px solid #FFCBA4` (durazno) | `3px solid #9e9e9e` (gris) |
+
+**Motivo:** El borde durazno del área de salida era el último elemento de color que no coincidía con las etiquetas grises, rompiendo la coherencia visual entre ambas secciones.
+
+---
+
+### Paso 2: Barras de desplazamiento con tema pastel
+
+**Archivo modificado:** `estilos.qss`
+
+**Cambios realizados:** Las barras de desplazamiento verticales y horizontales ahora usan tonos azul pastel en lugar de gris neutro, con un ancho mayor y estado `:pressed`.
+
+| Propiedad | Antes | Después |
+|-----------|-------|---------|
+| Fondo de pista | `#f0f0f0` (gris claro) | `#e8edf2` (azul muy claro) |
+| Color del control (handle) | `#c0c0c0` (gris) | `#A8C4E8` (azul pastel) |
+| Color al pasar el mouse (hover) | `#a0a0a0` (gris oscuro) | `#8BB0D8` (azul medio) |
+| Color al presionar (pressed) | No definido | `#7BAFD4` (azul más intenso) |
+| Ancho/alto de barra | 12px | 14px |
+| Borde redondeado | 6px | 7px |
+
+**Motivo:** Las barras de desplazamiento grises se veían genéricas y no integradas con el tema pastel de la interfaz. Ahora armonicen con los botones y otros elementos de color.
+
+---
+
+### Paso 3: Verificación final
+
+**Comando ejecutado:**
+```powershell
+python -m unittest discover tests
+```
+
+**Resultado:** 86 tests ejecutados, todos pasaron (OK) en 0.609s.
+
+---
+
+## Resumen de Archivos Modificados (Sesión 5)
+
+| Archivo | Acción | Descripción |
+|---------|--------|-------------|
+| `estilos.qss` | **Modificado** | Borde de txtSalida unificado a gris (#9e9e9e). Barras de desplazamiento verticales y horizontales con tema azul pastel (#A8C4E8), ancho 14px, estado :pressed (#7BAFD4) |
+
+**Total de archivos modificados en esta sesión:** 1 archivo
+
+---
+
+## Archivos NO Modificados
+
+Los siguientes archivos **no fueron tocados** durante esta sesión:
+
+- `compilador/` (carpeta completa con la lógica del compilador)
+- `tests/` (carpeta completa con los tests unitarios)
+- `README.md`
+- `MANUAL_USUARIO.md`
+- `requirements.txt`
+- `.gitignore`
+- `editor.py`
+- `resaltador.py`
+- `main.py`
+- `interfaz.ui`
+- `ui_principal.py`
+
+---
+
+## Estado Final
+
+- **Rama:** `interfaz-bonita`
+- **Tests:** 86 tests pasando (OK)
+- **Archivos pendientes de commit:** estilos.qss
+- **Funcionalidad:** Sin cambios, solo mejoras visuales.
+
+---
+
+## Sesión 6: Gradientes y bordes redondeados en etiquetas, editor y salida
+
+**Fecha:** 22 de noviembre de 2026  
+**Objetivo:** Agregar efectos de gradiente sutil y bordes más redondeados a las etiquetas "Código:" y "Salida:", al editor de código y al área de salida para dar una sensación de profundidad y modernidad a la interfaz.
+
+---
+
+### Paso 1: Etiquetas con gradiente y bordes redondeados
+
+**Archivo modificado:** `estilos.qss`
+
+**Cambios realizados:** Las etiquetas `lblEditor` y `lblSalida` ahora usan un gradiente vertical en lugar de un color sólido, con bordes más redondeados y padding aumentado.
+
+| Propiedad | Antes | Después |
+|-----------|-------|---------|
+| Fondo | `#e0e0e0` (gris sólido) | Gradiente vertical `#f0f0f0 → #d8d8d8` |
+| Borde | Solo izquierdo `4px solid #9e9e9e` | Borde completo `1px solid #c8c8c8` + izquierdo `4px solid #9e9e9e` |
+| Borde redondeado | `4px` | `8px` |
+| Padding | `6px 10px 4px 12px` | `8px 12px 6px 14px` |
+| Altura mínima | `24px` | `28px` |
+
+**Motivo:** El color sólido gris se veía plano. El gradiente vertical da una sensación de relieve y los bordes más redondeados hacen las etiquetas más amigables visualmente.
+
+---
+
+### Paso 2: Editor de código con gradiente de profundidad
+
+**Archivo modificado:** `estilos.qss`
+
+**Cambios realizados:** El editor `txtEditor` ahora usa un gradiente vertical sutil en lugar de blanco puro, con bordes más redondeados y padding aumentado.
+
+| Propiedad | Antes | Después |
+|-----------|-------|---------|
+| Fondo | `#ffffff` (blanco sólido) | Gradiente vertical `#ffffff → #f8f9fa` |
+| Fondo al enfocar | `#ffffff` | Gradiente vertical `#ffffff → #f0f4f8` (tinte azul) |
+| Borde redondeado | `8px` | `10px` |
+| Padding | `10px` | `12px` |
+
+**Motivo:** El blanco puro del editor se veía plano. El gradiente sutil da profundidad sin distraer de la escritura, y al enfocar cambia a un tinte azul que indica el estado activo.
+
+---
+
+### Paso 3: Área de salida con gradiente oscuro
+
+**Archivo modificado:** `estilos.qss`
+
+**Cambios realizados:** El área de salida `txtSalida` ahora usa un gradiente vertical oscuro en lugar de un color sólido, con bordes más redondeados y padding aumentado.
+
+| Propiedad | Antes | Después |
+|-----------|-------|---------|
+| Fondo | `#2d2d2d` (gris oscuro sólido) | Gradiente vertical `#333333 → #252525` |
+| Borde redondeado | `8px` | `10px` |
+| Padding | `10px` | `12px` |
+
+**Motivo:** El gris oscuro sólido se veía plano. El gradiente da una sensación de profundidad tipo "pantalla" que encaja con la función de consola de salida.
+
+---
+
+### Paso 4: Verificación final
+
+**Comando ejecutado:**
+```powershell
+python -m unittest discover tests
+```
+
+**Resultado:** 86 tests ejecutados, todos pasaron (OK) en 0.595s.
+
+---
+
+## Resumen de Archivos Modificados (Sesión 6)
+
+| Archivo | Acción | Descripción |
+|---------|--------|-------------|
+| `estilos.qss` | **Modificado** | Etiquetas con gradiente y bordes redondeados (8px). Editor con gradiente sutil y padding 12px. Salida con gradiente oscuro y padding 12px. Bordes redondeados aumentados a 10px en editor y salida |
+
+**Total de archivos modificados en esta sesión:** 1 archivo
+
+---
+
+## Archivos NO Modificados
+
+Los siguientes archivos **no fueron tocados** durante esta sesión:
+
+- `compilador/` (carpeta completa con la lógica del compilador)
+- `tests/` (carpeta completa con los tests unitarios)
+- `README.md`
+- `MANUAL_USUARIO.md`
+- `requirements.txt`
+- `.gitignore`
+- `editor.py`
+- `resaltador.py`
+- `main.py`
+- `interfaz.ui`
+- `ui_principal.py`
+
+---
+
+## Estado Final
+
+- **Rama:** `interfaz-bonita`
+- **Tests:** 86 tests pasando (OK)
+- **Archivos pendientes de commit:** estilos.qss, REGISTRO_DE_CAMBIOS.md
+- **Funcionalidad:** Sin cambios, solo mejoras visuales.
