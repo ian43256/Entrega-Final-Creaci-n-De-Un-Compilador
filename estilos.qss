@@ -238,8 +238,8 @@ QPushButton#btnLimpiar:pressed {
 
 /* ---------- layout de botones ---------- */
 QHBoxLayout#layoutBotones {
-    spacing: 10px;
-    margin: 10px 10px 6px 10px;
+    spacing: 12px;
+    margin: 12px 12px 8px 12px;
 }
 
 /* ---------- layout vertical principal ---------- */
