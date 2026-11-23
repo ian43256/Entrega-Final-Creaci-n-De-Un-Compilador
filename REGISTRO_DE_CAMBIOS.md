@@ -847,3 +847,75 @@ Los siguientes archivos **no fueron tocados** durante esta sesión:
 - **Tests:** 86 tests pasando (OK)
 - **Archivos pendientes de commit:** estilos.qss, REGISTRO_DE_CAMBIOS.md
 - **Funcionalidad:** Sin cambios, solo mejoras visuales.
+
+---
+
+## Sesión 7: Barra de estado con gradiente y mejor espaciado
+
+**Fecha:** 23 de noviembre de 2026  
+**Objetivo:** Mejorar la barra de estado inferior (QStatusBar) para que destaque visualmente como un indicador de estado del sistema, en lugar de verse como una extensión blanca y plana de la ventana principal.
+
+---
+
+### Paso 1: Barra de estado con gradiente sutil
+
+**Archivo modificado:** `estilos.qss`
+
+**Cambios realizados:** La barra de estado ahora usa un gradiente vertical sutil en lugar de blanco sólido, con borde superior más definido y mayor padding.
+
+| Propiedad | Antes | Después |
+|-----------|-------|---------|
+| Fondo | `#ffffff` (blanco sólido) | Gradiente vertical `#f8f9fa → #e8edf2` |
+| Borde superior | `2px solid #e0e8f0` (muy claro) | `2px solid #d0d8e0` (más definido) |
+| Padding | `4px 8px` | `6px 10px` |
+| Padding de items | `2px 8px` | `2px 12px` |
+
+**Motivo:** La barra de estado es el componente encargado de mostrar información clave al usuario (modo de edición/lectura, mensajes de estado). Al ser completamente blanca, se mezclaba con el resto de la interfaz y no cumplía su función de ser un área de referencia visual. El gradiente sutil la diferencia del cuerpo principal sin ser invasivo, y el mayor padding mejora la legibilidad de los mensajes.
+
+---
+
+### Paso 2: Verificación final
+
+**Comando ejecutado:**
+```powershell
+python -m unittest discover tests
+```
+
+**Resultado:** 86 tests ejecutados, todos pasaron (OK) en 0.597s.
+
+---
+
+## Resumen de Archivos Modificados (Sesión 7)
+
+| Archivo | Acción | Descripción |
+|---------|--------|-------------|
+| `estilos.qss` | **Modificado** | QStatusBar con gradiente vertical (#f8f9fa → #e8edf2), borde superior más definido (#d0d8e0), padding aumentado a 6px 10px, items con padding lateral 12px |
+
+**Total de archivos modificados en esta sesión:** 1 archivo
+
+---
+
+## Archivos NO Modificados
+
+Los siguientes archivos **no fueron tocados** durante esta sesión:
+
+- `compilador/` (carpeta completa con la lógica del compilador)
+- `tests/` (carpeta completa con los tests unitarios)
+- `README.md`
+- `MANUAL_USUARIO.md`
+- `requirements.txt`
+- `.gitignore`
+- `editor.py`
+- `resaltador.py`
+- `main.py`
+- `interfaz.ui`
+- `ui_principal.py`
+
+---
+
+## Estado Final
+
+- **Rama:** `interfaz-bonita`
+- **Tests:** 86 tests pasando (OK)
+- **Archivos pendientes de commit:** estilos.qss, REGISTRO_DE_CAMBIOS.md
+- **Funcionalidad:** Sin cambios, solo mejoras visuales.
