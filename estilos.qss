@@ -256,8 +256,8 @@ EditorCodigo#txtEditor {
     border-top: 3px solid #C5D9F7;
     border-radius: 10px;
     padding: 12px;
-    selection-background-color: #b3d4fc;
-    selection-color: #1e1e1e;
+    selection-background-color: #A8C4E8;
+    selection-color: #ffffff;
     font-size: 12px;
 }
 
