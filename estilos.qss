@@ -55,10 +55,10 @@ QMenu::separator {
 QToolTip {
     background-color: #ffffff;
     color: #333333;
-    border: 2px solid #C5D9F7;
-    border-radius: 6px;
-    padding: 6px 10px;
-    font-size: 11px;
+    border: 1px solid #C5D9F7;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
 }
 
 /* ---------- barra de estado ---------- */
