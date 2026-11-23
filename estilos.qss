@@ -12,14 +12,14 @@ QMainWindow {
 QMenuBar {
     background-color: #ffffff;
     color: #333333;
-    padding: 2px 4px;
-    border-bottom: 1px solid #d0d0d0;
+    padding: 3px 6px;
+    border-bottom: 2px solid #d0d8e0;
     font-size: 13px;
 }
 
 QMenuBar::item {
-    padding: 4px 8px;
-    border-radius: 4px;
+    padding: 5px 10px;
+    border-radius: 6px;
 }
 
 QMenuBar::item:selected {
@@ -29,19 +29,21 @@ QMenuBar::item:selected {
 QMenu {
     background-color: #ffffff;
     color: #333333;
-    border: 1px solid #d0d0d0;
-    border-radius: 4px;
-    padding: 4px;
+    border: 1px solid #d0d8e0;
+    border-radius: 8px;
+    padding: 6px;
     font-size: 13px;
 }
 
 QMenu::item {
-    padding: 6px 24px 6px 12px;
-    border-radius: 4px;
+    padding: 7px 24px 7px 14px;
+    border-radius: 6px;
 }
 
 QMenu::item:selected {
-    background-color: #e0e8f0;
+    background-color: #C5D9F7;
+    color: #1e1e1e;
+    font-weight: 600;
 }
 
 QMenu::separator {
@@ -55,10 +57,10 @@ QMenu::separator {
 QToolTip {
     background-color: #ffffff;
     color: #333333;
-    border: 2px solid #C5D9F7;
-    border-radius: 6px;
-    padding: 6px 10px;
-    font-size: 11px;
+    border: 1px solid #C5D9F7;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
 }
 
 /* ---------- barra de estado ---------- */
@@ -238,8 +240,8 @@ QPushButton#btnLimpiar:pressed {
 
 /* ---------- layout de botones ---------- */
 QHBoxLayout#layoutBotones {
-    spacing: 10px;
-    margin: 10px 10px 6px 10px;
+    spacing: 12px;
+    margin: 12px 12px 8px 12px;
 }
 
 /* ---------- layout vertical principal ---------- */
@@ -256,8 +258,8 @@ EditorCodigo#txtEditor {
     border-top: 3px solid #C5D9F7;
     border-radius: 10px;
     padding: 12px;
-    selection-background-color: #b3d4fc;
-    selection-color: #1e1e1e;
+    selection-background-color: #A8C4E8;
+    selection-color: #ffffff;
     font-size: 12px;
 }
 
@@ -424,21 +426,32 @@ QScrollBar::sub-page:horizontal {
 /* ---------- mensajes (QMessageBox) ---------- */
 QMessageBox {
     background-color: #ffffff;
+    border-radius: 8px;
 }
 
 QMessageBox QLabel {
     color: #333333;
+    font-size: 13px;
+    padding: 4px 0;
 }
 
 QMessageBox QPushButton {
-    background-color: #ffffff;
+    background-color: #C5D9F7;
     color: #333333;
-    border: 1px solid #c0c0c0;
-    border-radius: 4px;
-    padding: 4px 16px;
-    min-width: 60px;
+    border: 1px solid #A8C4E8;
+    border-radius: 8px;
+    padding: 6px 20px;
+    min-width: 70px;
+    font-weight: 600;
+    font-size: 12px;
 }
 
 QMessageBox QPushButton:hover {
-    background-color: #e8edf2;
+    background-color: #B0C8F0;
+    border-color: #8BB0D8;
+}
+
+QMessageBox QPushButton:pressed {
+    background-color: #9AB8E6;
+    border-color: #7AA0C8;
 }
