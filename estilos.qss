@@ -12,14 +12,14 @@ QMainWindow {
 QMenuBar {
     background-color: #ffffff;
     color: #333333;
-    padding: 2px 4px;
-    border-bottom: 1px solid #d0d0d0;
+    padding: 3px 6px;
+    border-bottom: 2px solid #d0d8e0;
     font-size: 13px;
 }
 
 QMenuBar::item {
-    padding: 4px 8px;
-    border-radius: 4px;
+    padding: 5px 10px;
+    border-radius: 6px;
 }
 
 QMenuBar::item:selected {
