@@ -63,17 +63,17 @@ QToolTip {
 
 /* ---------- barra de estado ---------- */
 QStatusBar {
-    background-color: #ffffff;
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #f8f9fa, stop:1 #e8edf2);
     color: #555555;
-    border-top: 2px solid #e0e8f0;
+    border-top: 2px solid #d0d8e0;
     font-size: 12px;
     font-weight: 500;
-    padding: 4px 8px;
+    padding: 6px 10px;
 }
 
 QStatusBar::item {
     border: none;
-    padding: 2px 8px;
+    padding: 2px 12px;
 }
 
 /* ---------- widget central ---------- */
